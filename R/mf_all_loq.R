@@ -31,13 +31,13 @@ mf_all_loq <- function(model_switch_i,xt_i,x_i,a_i,bpop_val,d_full,sigma_full,do
   if(length(loq)==1) loq_full <- rep(loq,length(pred))
   if(length(uloq)==1) uloq_full <- rep(uloq,length(pred))
   
-  if(length(loq) == n_mod){
+  if(length(loq) == length(n_mod)){
     for(k in unique(c(model_switch_i))){
       loq_full[model_switch_i==k] <- loq[k]
     }
   }
   
-  if(length(uloq) == n_mod){
+  if(length(uloq) == length(n_mod)){
     for(k in unique(c(model_switch_i))){
       uloq_full[model_switch_i==k] <- uloq[k]
     }

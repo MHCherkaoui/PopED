@@ -123,6 +123,8 @@ mf_all_loq <- function(model_switch_i,xt_i,x_i,a_i,bpop_val,d_full,sigma_full,do
       
       # 2. Simulate potential outcomes from the MVN distribution
       # This replaces the exhaustive permutation matrix
+      pred_pot_loq <- pred[loq_obs_master == 2]
+      cov_pot_loq  <- cov[loq_obs_master == 2, loq_obs_master == 2]
       sim_outcomes <- mvtnorm::rmvnorm(n_mc_samples, mean = pred_pot_loq, sigma = cov_pot_loq)
       
       fim <- zeros(fim_size)

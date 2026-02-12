@@ -121,10 +121,11 @@ mf_all_loq <- function(model_switch_i,xt_i,x_i,a_i,bpop_val,d_full,sigma_full,do
     # MC Sampling approach for large number of potential LOQ observations
     if(FLAG_MC){
       
-      # 2. Simulate potential outcomes from the MVN distribution
-      # This replaces the exhaustive permutation matrix
       pred_pot_loq <- pred[loq_obs_master == 2]
       cov_pot_loq  <- cov[loq_obs_master == 2, loq_obs_master == 2]
+      
+      # 2. Simulate potential outcomes from the MVN distribution
+      # This replaces the exhaustive permutation matrix
       sim_outcomes <- mvtnorm::rmvnorm(n_mc_samples, mean = pred_pot_loq, sigma = cov_pot_loq)
       
       fim <- zeros(fim_size)
@@ -137,8 +138,8 @@ mf_all_loq <- function(model_switch_i,xt_i,x_i,a_i,bpop_val,d_full,sigma_full,do
         # 0 = Observed, 1 = BLOQ, 2 = ALOQ
         loq_obs_tmp <- loq_obs_master
         
-        sim_bloq <- current_obs < lloq_mat[1, ] # Simplified check
-        sim_aloq <- current_obs > uloq_mat[1, ]
+        sim_bloq <- current_obs < loq_full[loq_obs_master == 2]
+        sim_aloq <- current_obs > uloq_full[loq_obs_master == 2]
         
         status <- rep(0, n_pot_loq)
         status[sim_bloq] <- 1
